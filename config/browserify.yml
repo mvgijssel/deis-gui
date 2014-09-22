@@ -1,0 +1,11 @@
+javascript:
+  vendors:
+    require:
+      - react
+      - react_ujs
+      - jquery
+  application:
+    external:
+      - react
+      - react_ujs
+      - jquery
