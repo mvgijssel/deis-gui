@@ -31,8 +31,12 @@ module DeisGui
 
     config.react.max_renderers = 10
     config.react.timeout = 20 #seconds
-    config.react.react_js = lambda { File.read(::Rails.application.assets.resolve('react.js')) }
-    config.react.component_filenames = ['components.js']    
+
+    # only use it for the server side rendering
+    # use npm for the actual react js code
+    # because browserify + sprockets can't resolve react.js from the gem
+    config.react.react_js = lambda { File.read("#{Rails.root}/node_modules/react/react.js") }
+    config.react.component_filenames = ['components.js']
 
     config.browserify_rails.commandline_options = "-t coffeeify --extension=\".coffee\""
   end
