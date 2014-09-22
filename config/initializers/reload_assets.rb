@@ -1,13 +1,5 @@
-# kerk = ActiveSupport::FileUpdateChecker.new([
-#   "#{Rails.root}/app/assets/javascripts/components/hello_message.js",
-# ], {}) do
-#   p 'SHOULD BE EXECUTED IF CHANGED'
-# end
-
-# p Rails.application.configuration.file_watcher
-
 paths = [
-  "#{Rails.root}/app/assets/javascripts/components/hello_message.js",
+  "#{Rails.root}/app/frontend/components/home/react_home.coffee",
 ]
 
 watcher = Rails.application.config.file_watcher.new(paths) { p 'RELOAD JS BITCH' }
