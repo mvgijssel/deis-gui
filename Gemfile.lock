@@ -11,6 +11,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actionmailer (4.1.6)
       actionpack (= 4.1.6)
@@ -39,6 +40,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    browserify-rails (0.4.2)
+      sprockets (~> 2.0)
     builder (3.2.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -86,6 +89,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.6)
       sprockets-rails (~> 2.0)
+    rails-assets-jquery (2.1.1)
+    rails-assets-perfect-scrollbar (0.5.1)
+      rails-assets-jquery (>= 1.10)
     railties (4.1.6)
       actionpack (= 4.1.6)
       activesupport (= 4.1.6)
@@ -153,11 +159,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  browserify-rails
   coffee-rails (~> 4.0.0)
   foreman
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.1.6)
+  rails-assets-perfect-scrollbar
   react-rails!
   rspec-rails
   sass-rails (~> 4.0.3)

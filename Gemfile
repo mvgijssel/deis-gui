@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
@@ -34,7 +34,14 @@ gem 'rspec-rails', group: :test
 
 gem 'foreman', group: :development
 
+# only use it for the server side rendering
+# use npm for the actual react js code
+# because browserify + sprockets can't resolve react.js from the gem
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
+
+gem "browserify-rails"
+
+gem 'rails-assets-perfect-scrollbar'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
