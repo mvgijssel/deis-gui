@@ -1,8 +1,10 @@
-paths = [
-  "#{Rails.root}/app/frontend/components/home/react_home.coffee",
-]
+directories = {
+  "#{Rails.root}/app/frontend" => [:coffee],
+}
 
-watcher = Rails.application.config.file_watcher.new(paths) { p 'RELOAD JS BITCH' }
+watcher = Rails.application.config.file_watcher.new([], directories) do
+  p "RELOADED FRONTEND COFFEE FILES"
+end
 
 Rails.application.reloaders << watcher
 
