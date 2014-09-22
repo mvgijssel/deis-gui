@@ -9,10 +9,11 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
-//= require jquery
-//= require jquery_ujs
-//= require react
-//= require react_ujs
 
-//= require components
+window.React = require('react');
+
+var react_ujs = require('react_ujs');
+
+window.kerk2 = require('kerk2');
+
+window.kerk2();
