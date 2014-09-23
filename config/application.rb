@@ -37,8 +37,6 @@ module DeisGui
     # because browserify + sprockets can't resolve react.js from the gem
     # config.react.react_js = lambda { File.read("#{Rails.root}/node_modules/react/react.js") }
     config.react.component_filenames = ['components.js']
-
-    config.browserify_rails.commandline_options = "-t coffeeify --extension=\".coffee\""
     config.react.react_js = lambda {File.read(::Rails.application.assets.resolve('react.js'))}
   end
 end
