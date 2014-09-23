@@ -1,14 +1,23 @@
 {
   "name": "deis-gui",
-  "dependencies" : {
-    "react": "0.11.2"
+  "dependencies": {
+    "react": "0.11.2",
+    "jquery": "~2.1.1"
   },
-  "devDependencies" : {
-    "browserify": "~> 4.1",
-    "coffeeify": "~> 0.6"
+  "devDependencies": {
+    "browserify": "~5.12.0",
+    "coffeeify": "~> 0.6",
+    "watchify": "~1.0.2",
+    "vinyl-source-stream": "~1.0.0",
+    "gulp-util": "~3.0.1"
   },
   "license": "MIT",
   "engines": {
     "node": ">= 0.10"
+  },
+  "scripts": {
+    "bundle": "(browserify app/assets/javascripts/index.js -o app/assets/javascripts/bundle.js) 2>&1",
+    "watch-js": "(watchify app/assets/javascripts/index.js -o app/assets/javascripts/bundle.js) 2>&1",
+    "start": "npm run watch-js & rails s"
   }
 }
