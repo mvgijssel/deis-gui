@@ -15,9 +15,6 @@ gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-
 #gem "therubyracer", :platforms => :ruby
 gem "therubyracer"
 # gem "therubyrhino"
@@ -38,10 +35,6 @@ gem 'foreman', group: :development
 # use npm for the actual react js code
 # because browserify + sprockets can't resolve react.js from the gem
 gem 'react-rails', github: 'reactjs/react-rails', branch: 'master'
-
-gem "browserify-rails"
-
-gem 'rails-assets-perfect-scrollbar'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
