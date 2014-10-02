@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
+var clean = require('gulp-clean');
 
 var browserify = require('browserify');
 var watchify = require('watchify');
@@ -11,7 +12,13 @@ var source = require('vinyl-source-stream');
 var coffeeify = require('coffeeify');
 
 // run multiple tasks
-gulp.task('default', ['browserify', 'sass']);
+gulp.task('default', ['clean', 'browserify', 'sass']);
+
+// clean all the build files
+gulp.task('clean', function(){
+  return gulp.src('./app/assets/build', {read: false})
+        .pipe(clean());
+});
 
 gulp.task('browserify', function() {
   var app_files = ['./app/frontend/app'];
