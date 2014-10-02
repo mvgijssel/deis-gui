@@ -1,2 +1,1 @@
-//= require vendor.js
-//= require app.js
+//= require ../build/app.js
