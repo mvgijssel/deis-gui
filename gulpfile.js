@@ -1,10 +1,9 @@
-// TODO: add sourcemaps
-
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 var clean = require('gulp-clean');
+var sourcemaps = require('gulp-sourcemaps');
 
 var browserify = require('browserify');
 var watchify = require('watchify');
@@ -20,6 +19,7 @@ gulp.task('clean', function(){
         .pipe(clean());
 });
 
+// browserify target files
 gulp.task('browserify', function() {
   var app_files = ['./app/frontend/app'];
 
@@ -29,6 +29,7 @@ gulp.task('browserify', function() {
     var bundler= watchify(browserify({
       paths: ['./node_modules','./app/frontend/'], // to prevent writing relative paths
       cache: {},
+      debug: true, // enable sourcemaps
       packageCache: {},
       fullPaths: true,
       extensions: ['.coffee']
@@ -55,6 +56,7 @@ gulp.task('browserify', function() {
   }
 });
 
+// convert target files to sass
 gulp.task('sass', function() {
   // use the following to set include paths for @import statements
   // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
@@ -67,10 +69,12 @@ gulp.task('sass', function() {
 
   function buildSass() {
     gulp.src('./app/assets/stylesheets/app.scss')
+      .pipe(sourcemaps.init())
       .pipe(sass({
         errLogToConsole: true,
         onSuccess: function() { gutil.log('Building scss done') }
       }))
+      .pipe(sourcemaps.write())
       .pipe(gulp.dest('./app/assets/build/'));
   }
 
