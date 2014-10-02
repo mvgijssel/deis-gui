@@ -38,14 +38,14 @@ gulp.task('browserify', function() {
     bundler.transform('coffeeify');
 
     bundler.on('update', function(){ createBundle(name, bundler) });
-    bundler.on('log', function(msg) { gutil.log('Bundle (' + name + '):', msg); });
+    bundler.on('log', function(msg) { gutil.log('Browserify (' + name + '):', msg); });
 
     createBundle(name, bundler);
   }
 
   function createBundle(name, bundler) {
     bundler.bundle()
-      .on('error', function(err) { gutil.log('Bundle (' + name + '):', err.message); })
+      .on('error', function(err) { gutil.log('Browserify (' + name + '):', err.message); })
       .pipe(source(name + '.js'))
       .pipe(gulp.dest('./app/assets/build/'));
   }
@@ -67,7 +67,7 @@ gulp.task('sass', function() {
     gulp.src('./app/assets/stylesheets/app.scss')
       .pipe(sass({
         errLogToConsole: true,
-        onSuccess: function() { gutil.log('Scss done') }
+        onSuccess: function() { gutil.log('Building scss done') }
       }))
       .pipe(gulp.dest('./app/assets/build/'));
   }
