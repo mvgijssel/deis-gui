@@ -56,9 +56,11 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('sass', function() {
+  // use the following to set include paths for @import statements
+  // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
+
   var sassLoadPaths = [
     './app/assets/stylesheets/app.scss',
-    //'./node_modules/bootstrap-sass/assets/stylesheets'
   ];
 
   watch('./app/assets/stylesheets/**/*', buildSass);
