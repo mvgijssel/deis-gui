@@ -61,9 +61,9 @@ gulp.task('sass', function() {
     //'./node_modules/bootstrap-sass/assets/stylesheets'
   ];
 
-  watch('./app/assets/stylesheets/**/*', rebuildSass);
+  watch('./app/assets/stylesheets/**/*', buildSass);
 
-  function rebuildSass() {
+  function buildSass() {
     gulp.src('./app/assets/stylesheets/app.scss')
       .pipe(sass({
         errLogToConsole: true,
@@ -72,9 +72,5 @@ gulp.task('sass', function() {
       .pipe(gulp.dest('./app/assets/build/'));
   }
 
-  //  .pipe(sass({
-  //     // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
-  //     onSuccess: function() { gutil.log('Scss done') }
-  //  }))
-
+  buildSass();
 });
