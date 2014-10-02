@@ -1,13 +1,13 @@
-# directories = {
-#   "#{Rails.root}/app/frontend" => [:coffee],
-# }
-#
-# watcher = Rails.application.config.file_watcher.new([], directories) do
-#   p "RELOADED FRONTEND COFFEE FILES"
-# end
-#
-# Rails.application.reloaders << watcher
-#
-# ActionDispatch::Reloader.to_prepare do
-#   watcher.execute_if_updated
-# end
+files = [
+  "#{Rails.root}/app/assets/build/app.js",
+]
+
+watcher = Rails.application.config.file_watcher.new(files) do
+  p "reload app.js"
+end
+
+Rails.application.reloaders << watcher
+
+ActionDispatch::Reloader.to_prepare do
+  watcher.execute_if_updated
+end
