@@ -1,8 +1,11 @@
+// TODO: add sourcemaps
+// TODO: add wiring with rails, update rails assets pipeline
+// TODO: integrate with foreman
+
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var sass = require('gulp-sass');
 var watch = require('gulp-watch');
-var sassGraph = require('gulp-sass-graph');
 
 var browserify = require('browserify');
 var watchify = require('watchify');
@@ -12,15 +15,22 @@ var coffeeify = require('coffeeify');
 // Basic usage
 gulp.task('default', function() {
 
-  var vendor_files = ['./index.coffee'];
-  var app_files = ['./index2.coffee'];
+  var app_files = ['./app/frontend/app'];
 
-  instantiateBundle('vendor', vendor_files);
   instantiateBundle('app', app_files);
 
   function instantiateBundle(name, files, requires) {
-    var bundler = watchify(browserify(files, watchify.args));
+    var bundler= watchify(browserify({
+      paths: ['./node_modules','./app/frontend/'], // to prevent writing relative paths
+      cache: {},
+      packageCache: {},
+      fullPaths: true,
+      extensions: ['.coffee']
+    }));
+
+    bundler.add(files);
     bundler.transform('coffeeify');
+
     bundler.on('update', function(){ createBundle(name, bundler) });
     bundler.on('log', function(msg) { gutil.log('Bundle (' + name + '):', msg); });
 
@@ -31,7 +41,7 @@ gulp.task('default', function() {
     bundler.bundle()
       .on('error', function(err) { gutil.log('Bundle (' + name + '):', err.message); })
       .pipe(source(name + '.js'))
-      .pipe(gulp.dest('./app/assets/javascripts'));
+      .pipe(gulp.dest('./app/assets/build/'));
   }
 
   function logBundle(message) {
@@ -39,41 +49,20 @@ gulp.task('default', function() {
   }
 });
 
+gulp.task('browserify', function() {
+
+});
+
 gulp.task('watch-sass', function() {
   var sassLoadPaths = [
-    './app/assets/stylesheets/**/*.scss',
-    './node_modules/bootstrap-sass/assets/stylesheets'
+    './app/assets/stylesheets/**/*.scss'
+    //'./node_modules/bootstrap-sass/assets/stylesheets'
   ];
-  //var sassLoadPaths = './app/assets/stylesheets/home.css.scss';
 
-  // watch(sassLoadPaths)
-  //   .pipe(sassGraph([
-  //     './app/assets/stylesheets/home.css.scss',
-  //     './node_modules/bootstrap-sass/assets/stylesheets'
-  //   ]))
-  //   .pipe(sass())
-  //   .pipe(gulp.dest('./web/dist/css'));
-
-  //gulp.src(sassLoadPaths)
   watch(sassLoadPaths)
-   .pipe(sassGraph(sassLoadPaths))
    .pipe(sass({
-      includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
+      // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
       onSuccess: function() { gutil.log('Scss done') }
    }))
-   .pipe(gulp.dest('./web/dist/css'));
-
-  // return watch(sassLoadPaths)
-  //   .pipe(gutil.log('kerk'));
-
-//  gutil.log(sassGraph(sassLoadPaths));
-
-  // return
-    //watch(sassLoadPaths
-  //, {emitOnGlob: false, name: "Sass"})
-  //   .pipe(sassGraph(sassLoadPaths))
-  //   .pipe(sass({loadPath: sassLoadPaths}))
-  //   .pipe(notify('Sass compiled <%= file.relative %>'))
-  //   .pipe(gulp.dest('web/dist/css'))
-  //   .pipe(livereload());
+   .pipe(gulp.dest('./app/assets/build/'));
 });
