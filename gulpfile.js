@@ -1,6 +1,4 @@
 // TODO: add sourcemaps
-// TODO: add wiring with rails, update rails assets pipeline
-// TODO: add build clean task and build task
 
 var gulp = require('gulp');
 var gutil = require('gulp-util');
