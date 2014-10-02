@@ -1,6 +1,6 @@
 // TODO: add sourcemaps
 // TODO: add wiring with rails, update rails assets pipeline
-// TODO: integrate with foreman
+// TODO: add build clean task and build task
 
 var gulp = require('gulp');
 var gutil = require('gulp-util');
@@ -12,9 +12,10 @@ var watchify = require('watchify');
 var source = require('vinyl-source-stream');
 var coffeeify = require('coffeeify');
 
-// Basic usage
-gulp.task('default', function() {
+// run multiple tasks
+gulp.task('default', ['browserify', 'sass']);
 
+gulp.task('browserify', function() {
   var app_files = ['./app/frontend/app'];
 
   instantiateBundle('app', app_files);
@@ -49,20 +50,26 @@ gulp.task('default', function() {
   }
 });
 
-gulp.task('browserify', function() {
-
-});
-
-gulp.task('watch-sass', function() {
+gulp.task('sass', function() {
   var sassLoadPaths = [
-    './app/assets/stylesheets/**/*.scss'
+    './app/assets/stylesheets/app.scss',
     //'./node_modules/bootstrap-sass/assets/stylesheets'
   ];
 
-  watch(sassLoadPaths)
-   .pipe(sass({
-      // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
-      onSuccess: function() { gutil.log('Scss done') }
-   }))
-   .pipe(gulp.dest('./app/assets/build/'));
+  watch('./app/assets/stylesheets/**/*', rebuildSass);
+
+  function rebuildSass() {
+    gulp.src('./app/assets/stylesheets/app.scss')
+      .pipe(sass({
+        errLogToConsole: true,
+        onSuccess: function() { gutil.log('Scss done') }
+      }))
+      .pipe(gulp.dest('./app/assets/build/'));
+  }
+
+  //  .pipe(sass({
+  //     // includePaths: ['./node_modules/bootstrap-sass/assets/stylesheets'],
+  //     onSuccess: function() { gutil.log('Scss done') }
+  //  }))
+
 });
