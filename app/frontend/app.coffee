@@ -1,0 +1,1 @@
+Dispatcher = require('flux').Dispatcher
